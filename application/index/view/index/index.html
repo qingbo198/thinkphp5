@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="__CSS__/bootstrap/bootstrap.css"/>
+    <title>vue and bootstrap test</title>
+</head>
+<style>
+    .container {
+        margin-top: 120px;
+        max-width: 650px;
+    }
+</style>
+<body>
+<div id="sub" class="container">
+    
+    
+    <form @submit.prevent="submitFrom" role="form" name="myform">
+        <!-- 注册提交事件 .prevent 阻止表单的默认提交行为 -->
+        <div class="form-group">
+            <lable for="name">姓名:</lable>
+            <input type="text" class="form-control" v-model="formData.name" id="name" required>
+        </div>
+        <div class="form-group">
+            <lable for="phone">手机:</lable>
+            <input type="number" class="form-control" v-model="formData.phone" id="phone" required>
+        </div>
+        <div class="form-group">
+            <lable for="six">性别:</lable>&nbsp&nbsp
+            <label class="radio-inline">
+                <input type="radio" name="six" v-model="formData.six" value="男"> 男
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="six" v-model="formData.six" value="女"> 女
+            </label>
+        
+        
+        </div>
+        
+        <div class="form-group">
+            <lable>爱好:</lable>
+            <select v-model="formData.hobby">
+                <option disabled value="" selected="selected">请选择</option>
+                <option value="香辣">香辣</option>
+                <option value="麻辣">麻辣</option>
+                <option value="清汤">清汤</option>
+                <option value="鸳鸯">鸳鸯</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-block " value="确定">提交</button>
+    </form>
+    
+    <!--</form>-->
+</div>
+
+
+<!--<div id="app-7">-->
+<!--<ul>-->
+<!--<li v-for="item in groceryList" v-bind:todo="item.text" v-bind:key="item.id">{{item.text}}</li>-->
+<!--</ul>-->
+<!--</div>-->
+
+<!--<div id="components-demo">-->
+<!--<button-counter></button-counter>-->
+<!--</div>-->
+
+
+<script src="__JS__/vue/axios.js"></script>
+<script src="__JS__/vue/vue.js"></script>
+<script src="__JS__/vue/index.js"></script>
+</body>
+</html>

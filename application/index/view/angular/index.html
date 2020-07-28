@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bootstrap test</title>
+    <link rel="stylesheet" type="text/css" href="__CSS__/bootstrap/bootstrap.css"/>
+    <!--<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>-->
+    <script src="__JS__/angular/angular.min.js"></script>
+    <script src="__JS__/jquery/jquery.js"></script>
+</head>
+<style>
+    .container {
+        margin-top: 120px;
+        max-width: 650px;
+    }
+</style>
+<body>
+<!--<div class="container" ng-app="app" ng-controller="myapp" ng-init="quanti=3;cost=5">-->
+<!--<form role="form">-->
+<!--<div class="form-group">-->
+<!--<lable for="name">名称</lable>-->
+<!--<input type="text" class="form-control"  ng-model="firstName">-->
+<!--<input type="text" class="form-control"  ng-model="lastName">-->
+<!--<h1> 姓名: {{firstName + " " + lastName}}</h1>-->
+<!--<h1> result: {{quanti * cost}}</h1>-->
+<!--<h1><p class="text-left text-success" ng-bind="quanti * cost"></p></h1>-->
+<!--&lt;!&ndash;<p ng-bind="name"></p>&ndash;&gt;-->
+<!--</div>-->
+<!--<button type="submit" class="btn btn-block">提交</button>-->
+<!--</form>-->
+<!--</div>-->
+
+<div class="container">
+    <form role="form" ng-app="myApp" name="myform" ng-controller="customersCtrl" ng-submit="sub()">
+        <div class="form-group">
+            <lable for="name">姓名：</lable>
+            <input type="text" class="form-control" ng-model="formData.name" name="name" required>
+            <p class="text-right text-success" ng-show="myform.name.$error.required" ng-cloak>姓名不为空</p>
+        </div>
+        <div class="form-group">
+            <lable for="email">邮箱：</lable>
+            <input type="email" class="form-control" ng-model="formData.email" name="email" required>
+            <p class="text-right" ng-show="myform.email.$error.email" ng-cloak>不是一个合法的邮箱地址</p>
+            <p class="text-right text-success" ng-show="myform.email.$error.required" ng-cloak>邮箱不为空</p>
+        </div>
+        <button type="submit" class="btn btn-block">提交</button>
+    </form>
+</div>
+
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function ($scope, $http) {
+        // $http.post("angular").then(function (response) {
+        //     $scope.myWelcome = response.data.name;
+        // })
+        $scope.formData = {
+            'name': '',
+            'email': '',
+        }
+        $scope.sub = function () {
+            console.log($scope.formData);
+            let data = new FormData();
+            $http({
+                method: 'POST',
+                url: 'angular',
+                data: $.param($scope.formData),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+
+            })
+            .success(function (data) {
+
+                console.log(data);
+
+
+                if (!data.success) {
+
+                    // if not successful, bind errors to error variables
+
+                    // $scope.errorName = data.errors.name;
+                    //
+                    // $scope.errorSuperhero = data.errors.superheroAlias;
+
+                } else {
+
+                    // if successful, bind success message to message
+
+                    // $scope.message = data.message;
+
+                }
+
+            });
+
+
+        }
+    });
+
+</script>
+
+</body>
+</html>

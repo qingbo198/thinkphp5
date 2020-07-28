@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {js href="https://cdn.bootcss.com/jquery/3.4.1/jquery.js" /}
+    <script src="__JS__/echarts.js"></script>
+    <!--<script src="__JS__/china.js"></script>-->
+
+    <title>{$title}</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+
+    html, body {
+        width: 100%;
+        height: 100%;
+    }
+
+    #main {
+        width: 600px;
+        height: 450px;
+        /*margin: 50px auto;*/
+        border: 1px solid #ccc;
+    }
+
+    #ma {
+        width: 600px;
+        height: 50px;
+        margin: 0 auto;
+        border: 1px solid #ccc;
+    }
+    #th {
+        width: 600px;
+        height: 450px;
+        /*margin: 50px auto;*/
+        border: 1px solid #ccc;
+    }
+    table{
+        width: 400px;
+        border:solid #ccc 1px;
+        text-align: center;
+        border-collapse: collapse;
+
+
+    }
+    table td{
+        align-content: center;
+        border:solid #ccc 1px;
+        height: 100px;
+    }
+</style>
+<body>
+<!--<input type="file" name="files" multiple="multiple">-->
+<!--<div id="main">-->
+
+<!--</div>-->
+
+<div class="view">
+    111
+</div>
+<div>周边三公里信息总览</div>
+<div class="table-c">
+    <table>
+        <tr style="height:200px">
+            <td colspan="2" rowspan="2" style="width:200px">
+                <p class="population_size"></p>
+                <p class="population_rate">占市总人口规模的</p>
+            </td>
+            <td colspan="2" rowspan="2" style="width:200px">
+                <p class="rent_ave_price"></p>
+                <p class="rent_ave_com">周边房租均价低于市场价</p>
+            </td>
+        </tr>
+        <tr>
+
+        </tr>
+
+        <tr style="height:200px">
+            <td colspan="2" rowspan="2">
+                <p class="house_pri_ave"></p>
+                <p class="house_pri_com">周边新房价格低于市场价</p>
+
+            </td>
+            <td colspan="2" rowspan="2">
+                <p class="sec_hand_hou_pri"></p>
+                <p class="sec_hand_com">周边二手房价格低于市场价</p>
+
+            </td>
+        </tr>
+        <tr>
+
+        </tr>
+        <tr>
+            <td class="dri_to_airport_time" style="width: 100px">驾车去机场需</td>
+            <td class="dri_to_metro_time" style="width: 100px">驾车去地铁站</td>
+            <td class="dri_to_train_time" style="width: 100px">驾车去火车站</td>
+            <td class="dri_to_lightrail_time" style="width: 100px">驾车去轻轨</td>
+        </tr>
+
+    </table>
+</div>
+<div id="ma" style="width: 400px;height:200px;border: 1px solid #ccc;float: left;margin: 0 auto;"></div>
+<div id="main" style="width: 450px;height:200px;float: left;"></div>
+<div id="th" style="width: 450px;height:200px;float: left;"></div>
+<p id="commit" style="cursor: pointer;clear: both;">点击</p>
+
+
+
+<script>
+    $(function () {
+        $('#commit').click(function () {
+            var id = '';
+            $.ajax({
+                url: "{:url('/admin/store/index')}",
+                data: {id: id},
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    //console.log(data.title)
+                    //alert(data.title);
+                    //alert(data['title']);
+                    $('.view').html(data.title);
+                    //周边三公里信息
+                    var population_size = data['pandect_info_json']['population_size'];
+                    var population_rate = data['pandect_info_json']['population_rate'];
+                    var rent_ave_price = data['pandect_info_json']['rent_ave_price'];
+                    var rent_ave_com = data['pandect_info_json']['rent_ave_com'];
+                    var house_pri_ave = data['pandect_info_json']['house_pri_ave'];
+                    var house_pri_com = data['pandect_info_json']['house_pri_com'];
+                    var sec_hand_hou_pri = data['pandect_info_json']['sec_hand_hou_pri'];
+                    var sec_hand_com = data['pandect_info_json']['sec_hand_com'];
+                    var dri_to_airport_time = data['pandect_info_json']['dri_to_airport_time'];
+                    var dri_to_train_time = data['pandect_info_json']['dri_to_train_time'];
+                    var dri_to_metro_time = data['pandect_info_json']['dri_to_metro_time'];
+                    var dri_to_lightrail_time = data['pandect_info_json']['dri_to_lightrail_time'];
+
+                    $('.population_size').html( population_size);
+                    $('.population_rate').html( $('.population_rate').html()+population_rate);
+                    $('.rent_ave_price').html(rent_ave_price);
+                    $('.rent_ave_com').html($('.rent_ave_com').html()+rent_ave_com);
+                    $('.house_pri_ave').html(house_pri_ave);
+                    $('.house_pri_com').html($('.house_pri_com').html()+house_pri_com);
+                    $('.sec_hand_hou_pri').html( sec_hand_hou_pri);
+                    $('.sec_hand_com').html($('.sec_hand_com').html()+sec_hand_com);
+                    $('.dri_to_airport_time').html($('.dri_to_airport_time').html()+dri_to_airport_time);
+                    $('.dri_to_train_time').html($('.dri_to_train_time').html()+dri_to_train_time);
+                    $('.dri_to_metro_time').html($('.dri_to_metro_time').html()+dri_to_metro_time);
+                    $('.dri_to_lightrail_time').html($('.dri_to_lightrail_time').html()+dri_to_lightrail_time);
+
+                    //年龄结构
+                    var fir = data['age_compose_per_json']['0-6'];
+                    var sec = data['age_compose_per_json']['7-18'];
+                    var thir = data['age_compose_per_json']['19-24'];
+                    var four = data['age_compose_per_json']['25-35'];
+                    var five = data['age_compose_per_json']['36-59'];
+                    var six = data['age_compose_per_json']['60+'];
+
+
+
+
+                    //年龄消费占比
+                    var fir_ = data['age_expense_per_json']['0-6'];
+                    var sec_ = data['age_expense_per_json']['7-18'];
+                    var thir_ = data['age_expense_per_json']['19-24'];
+                    var four_ = data['age_expense_per_json']['25-35'];
+                    var five_ = data['age_expense_per_json']['36-59'];
+                    var six_ = data['age_expense_per_json']['60+'];
+
+                    //周边信息
+                    var residential_area = data['matched_info_json']['residential_area'];
+                    var office_building = data['matched_info_json']['office building'];
+                    var hotel = data['matched_info_json']['hotel'];
+                    var restaurant = data['matched_info_json']['restaurant'];
+                    var shopping_mall = data['matched_info_json']['shopping_mall'];
+                    var traffic_site = data['matched_info_json']['traffic_site'];
+                    var education = data['matched_info_json']['education'];
+                    var recreation = data['matched_info_json']['recreation'];
+                    var tourist_attractions = data['matched_info_json']['tourist_attractions'];
+
+
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init(document.getElementById('ma'));
+                    var myChart_ = echarts.init(document.getElementById('main'));
+                    var myChart__ = echarts.init(document.getElementById('th'));
+
+                    // 指定图表的配置项和数据
+                    var option = {
+                        title: {
+                            text: '年龄结构'
+                        },
+                        tooltip: {
+                            formatter: function (params) {
+                                return params.name + " " + +params.value + " %"
+                            }
+                        },
+
+                        //饼图
+                        series: {
+                            type: 'pie',
+                            data: [
+                                {name: '0-6岁', value: fir},
+                                {name: '7-18岁', value: sec},
+                                {name: '19-24岁', value: thir},
+                                {name: '25-35岁', value: four},
+                                {name: '36-59岁', value: five},
+                                {name: '60岁+', value: six}
+                            ]
+                        }
+                    };
+
+                    // 指定图表的配置项和数据
+                    var option_ = {
+                        title: {
+                            text: '年龄消费占比'
+                        },
+                        tooltip: {
+                            // trigger: 'item',
+                            // //在这里设置
+                            // formatter: '{c}%',
+                            formatter: function (params) {
+                                return params.name + " " + +params.value + " %"
+                            }
+                        },
+
+
+                        // legend: {
+                        //     orient: 'horizontal',
+                        // },
+                        //条形统计图
+                        xAxis: {
+                            data: ["0-6岁","7-18岁","19-24岁","25-35岁","36-59岁","60岁+"],
+
+                        },
+                        yAxis: {
+                            name: '%',
+                        },
+                        series: [{
+                            name: '占比%',
+                            type: 'bar',
+                            data: [fir_,sec_,thir_,four_,five_,six_]
+                        }]
+                    };
+
+                    //环形
+                    var option__ = {
+                        title: {
+                            text: '周边信息',
+                            right: 10,
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b}: {c} ({d}%)'
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            left: 10,
+                            data: ['居民区', '写字楼', '酒店', '餐厅', '购物中心','交通站点','教育','休闲娱乐','旅游']
+                        },
+                        series: [
+                            {
+                                name: '访问来源',
+                                type: 'pie',
+                                radius: ['50%', '70%'],
+                                avoidLabelOverlap: false,
+                                label: {
+                                    normal: {
+                                        show: false,
+                                        position: 'center'
+                                    },
+                                    emphasis: {
+                                        show: true,
+                                        textStyle: {
+                                            fontSize: '30',
+                                            fontWeight: 'bold'
+                                        }
+                                    }
+                                },
+                                labelLine: {
+                                    normal: {
+                                        show: false
+                                    }
+                                },
+                                data: [
+                                    {value: residential_area, name: '居民区'},
+                                    {value: office_building, name: '写字楼'},
+                                    {value: hotel, name: '酒店'},
+                                    {value: restaurant, name: '餐厅'},
+                                    {value: shopping_mall, name: '购物中心'},
+                                    {value: traffic_site, name: '交通站点'},
+                                    {value: education, name: '教育'},
+                                    {value: recreation, name: '休闲娱乐'},
+                                    {value: tourist_attractions, name: '旅游'},
+                                ]
+                            }
+                        ]
+                    };
+
+
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                    myChart_.setOption(option_);
+                    myChart__.setOption(option__);
+                }
+            })
+        })
+    })
+</script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
