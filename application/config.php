@@ -242,9 +242,9 @@ return [
     ],
 	//'__JS__'    =>   '/public/static/js',
 
-
-    '__CSS__'   =>  '/public/static/css',
-    '__JS__'    =>  '/public/static/js',
-    '__IMG__'   =>  '/public/static/img',
+//
+//    '__CSS__'   =>  '/public/static/css',
+//    '__JS__'    =>  '/public/static/js',
+//    '__IMG__'   =>  '/public/static/img',
 
 ];

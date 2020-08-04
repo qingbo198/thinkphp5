@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    {js href="https://cdn.bootcss.com/jquery/3.4.1/jquery.js" /}
-    <script src="__JS__/echarts.js"></script>
+
+    <!--<script src="__JS__/echarts.js"></script>-->
     <!--<script src="__JS__/china.js"></script>-->
 
     <title>{$title}</title>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
 </head>
 <style>
     * {
@@ -62,57 +63,58 @@
     111
 </div>
 <div>周边三公里信息总览</div>
-<div class="table-c">
-    <table>
-        <tr style="height:200px">
-            <td colspan="2" rowspan="2" style="width:200px">
-                <p class="population_size"></p>
-                <p class="population_rate">占市总人口规模的</p>
-            </td>
-            <td colspan="2" rowspan="2" style="width:200px">
-                <p class="rent_ave_price"></p>
-                <p class="rent_ave_com">周边房租均价低于市场价</p>
-            </td>
-        </tr>
-        <tr>
+<!--<div class="table-c">-->
+    <!--<table>-->
+        <!--<tr style="height:200px">-->
+            <!--<td colspan="2" rowspan="2" style="width:200px">-->
+                <!--<p class="population_size"></p>-->
+                <!--<p class="population_rate">占市总人口规模的</p>-->
+            <!--</td>-->
+            <!--<td colspan="2" rowspan="2" style="width:200px">-->
+                <!--<p class="rent_ave_price"></p>-->
+                <!--<p class="rent_ave_com">周边房租均价低于市场价</p>-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
 
-        </tr>
+        <!--</tr>-->
 
-        <tr style="height:200px">
-            <td colspan="2" rowspan="2">
-                <p class="house_pri_ave"></p>
-                <p class="house_pri_com">周边新房价格低于市场价</p>
+        <!--<tr style="height:200px">-->
+            <!--<td colspan="2" rowspan="2">-->
+                <!--<p class="house_pri_ave"></p>-->
+                <!--<p class="house_pri_com">周边新房价格低于市场价</p>-->
 
-            </td>
-            <td colspan="2" rowspan="2">
-                <p class="sec_hand_hou_pri"></p>
-                <p class="sec_hand_com">周边二手房价格低于市场价</p>
+            <!--</td>-->
+            <!--<td colspan="2" rowspan="2">-->
+                <!--<p class="sec_hand_hou_pri"></p>-->
+                <!--<p class="sec_hand_com">周边二手房价格低于市场价</p>-->
 
-            </td>
-        </tr>
-        <tr>
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
 
-        </tr>
-        <tr>
-            <td class="dri_to_airport_time" style="width: 100px">驾车去机场需</td>
-            <td class="dri_to_metro_time" style="width: 100px">驾车去地铁站</td>
-            <td class="dri_to_train_time" style="width: 100px">驾车去火车站</td>
-            <td class="dri_to_lightrail_time" style="width: 100px">驾车去轻轨</td>
-        </tr>
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td class="dri_to_airport_time" style="width: 100px">驾车去机场需</td>-->
+            <!--<td class="dri_to_metro_time" style="width: 100px">驾车去地铁站</td>-->
+            <!--<td class="dri_to_train_time" style="width: 100px">驾车去火车站</td>-->
+            <!--<td class="dri_to_lightrail_time" style="width: 100px">驾车去轻轨</td>-->
+        <!--</tr>-->
 
-    </table>
-</div>
+    <!--</table>-->
+<!--</div>-->
 <div id="ma" style="width: 400px;height:200px;border: 1px solid #ccc;float: left;margin: 0 auto;"></div>
 <div id="main" style="width: 450px;height:200px;float: left;"></div>
 <div id="th" style="width: 450px;height:200px;float: left;"></div>
 <p id="commit" style="cursor: pointer;clear: both;">点击</p>
 
 
-
+{js href="https://cdn.bootcss.com/jquery/3.4.1/jquery.js" /}
+<!--<script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.8.0/echarts.js"></script>-->
 <script>
     $(function () {
         $('#commit').click(function () {
-            var id = '';
+            var id = 1;
             $.ajax({
                 url: "{:url('/admin/store/index')}",
                 data: {id: id},
