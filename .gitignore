@@ -2,3 +2,7 @@
 composer.lock
 *.log
 thinkphp
+public/.htaccess
+public/.htaccess
+/public/*.htaccess
+/public/.htaccess
