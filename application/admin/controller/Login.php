@@ -26,8 +26,11 @@ class Login {
     //默认配置
     protected $config = [
         'url' => "https://api.weixin.qq.com/sns/jscode2session", //微信获取session_key接口url
-        'appid' => 'wx4fc60306ef4a112f', // APPId
+        'appid' => 'wx4fc60306ef4a112f', // APPId  蜜蜂词汇营
         'secret' => '8944f3922691b9dba48f623557a5e4a1', // 秘钥
+
+        //'appid' => 'wx0933cd9776111d8e', // APPId  壹零点壹
+        //'secret' => '378898262b1ec4c72dbf8e47d3a39291', // 秘钥
         'grant_type' => 'authorization_code', // grant_type，一般情况下固定的
     ];
 
@@ -65,7 +68,7 @@ class Login {
 
         $res = $this->makeRequest($this->config['url'], $params);
 
-        echo 'debug<br><pre>'; print_r($res); exit;
+        //echo 'debug<br><pre>'; print_r($res); exit;
 
         if ($res['code'] !== 200 || !isset($res['result']) || !isset($res['result'])) {
             return ['code' => ErrorCode::$RequestTokenFailed, 'message' => '请求Token失败'];
