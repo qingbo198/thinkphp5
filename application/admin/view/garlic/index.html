@@ -78,19 +78,18 @@
                     //console.log(data);return;
                     $.each(data.red_6_5,function (index, item) {
                         garlic_date.push(item.date);
-                        red_garlic_6_5_price.push(parseFloat(item.price.substring(0,4)));
+                        red_garlic_6_5_price.push(item.price.substring(0,4));
                     })
                     $.each(data.red_6_0,function (index, item) {
-                        red_garlic_6_0_price.push(parseFloat(item.price.substring(0,4)));
+                        red_garlic_6_0_price.push(item.price.substring(0,4));
                     })
                     $.each(data.red_5_5,function (index, item) {
-                        red_garlic_5_5_price.push(parseFloat(item.price.substring(0,4)));
+                        red_garlic_5_5_price.push(item.price.substring(0,4));
                     })
                     $.each(data.red_5_0,function (index, item) {
-                        red_garlic_5_0_price.push(parseFloat(item.price.substring(0,4)));
+                        red_garlic_5_0_price.push(item.price.substring(0,4));
                     })
-                    //console.log(garlic_date);//return;
-                    console.log(111,red_garlic_6_5_price);//return;
+                    console.log(garlic_date);//return;
 
 
                     // 基于准备好的dom，初始化echarts实例
@@ -99,7 +98,7 @@
                     // 指定图表的配置项和数据
                     option = {
                         title: {
-                            text: '2021大蒜价格走势图'
+                            text: '2020-2021大蒜价格走势图'
                         },
                         tooltip: {
                             trigger: 'axis'
@@ -130,25 +129,26 @@
                             {
                                 name: '红6.5cm',
                                 type: 'line',
-                                stack: '价格1',
+                                stack: '价格',
                                 data:  red_garlic_6_5_price
                             },
+
                             {
                                 name: '红6.0cm',
                                 type: 'line',
-                                stack: '价格2',
+                                stack: '价格',
                                 data: red_garlic_6_0_price
                             },
                             {
                                 name: '红5.5cm',
                                 type: 'line',
-                                stack: '价格3',
+                                stack: '价格',
                                 data: red_garlic_5_5_price
                             },
                             {
                                 name: '红5.0cm',
                                 type: 'line',
-                                stack: '价格4',
+                                stack: '价格',
                                 data: red_garlic_5_0_price
                             },
                         ]
