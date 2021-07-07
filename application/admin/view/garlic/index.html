@@ -52,115 +52,235 @@
         border:solid #ccc 1px;
         height: 100px;
     }
+    .flex{
+        display: flex;
+    }
+    .flexColumn{
+        display:flex;
+        flex-direction: column;
+    }
+    .border{
+        border:solid red 1px;
+    }
 </style>
 <body>
+    <div class="flexColumn border" style="height: 100%;">
+        <div id="lastSevenDay" class="border" style="width:50%;height: 300px">
 
-<div id="garlic" style="width: 100%;height:50%;border: 1px solid #ccc;float: left;margin: 100px auto;">
+        </div>
+        <div id="garlic" style="width: 100%;height:50%;">
+
+    </div>
 
 </div>
 {js href="https://cdn.bootcss.com/jquery/3.4.1/jquery.js" /}
 <script>
     $(function () {
-
-            var id = 1;
-            let garlic_date = [];
-
-            let red_garlic_6_5_price = [];
-            let red_garlic_6_0_price = [];
-            let red_garlic_5_5_price = [];
-            let red_garlic_5_0_price = [];
-            $.ajax({
-                url: "{:url('/admin/garlic/index')}",
-                data: {id: id},
-                type: "post",
-                dataType: "json",
-                success: function (data) {
-                    //console.log(data);return;
-                    $.each(data.red_6_5,function (index, item) {
-                        garlic_date.push(item.date);
-                        red_garlic_6_5_price.push(item.price.substring(0,4));
-                    })
-                    $.each(data.red_6_0,function (index, item) {
-                        red_garlic_6_0_price.push(item.price.substring(0,4));
-                    })
-                    $.each(data.red_5_5,function (index, item) {
-                        red_garlic_5_5_price.push(item.price.substring(0,4));
-                    })
-                    $.each(data.red_5_0,function (index, item) {
-                        red_garlic_5_0_price.push(item.price.substring(0,4));
-                    })
-                    console.log(garlic_date);//return;
-
-
-                    // 基于准备好的dom，初始化echarts实例
-                    var myChart = echarts.init(document.getElementById('garlic'));
-
-                    // 指定图表的配置项和数据
-                    option = {
-                        title: {
-                            text: '2020-2021大蒜价格走势图'
-                        },
-                        tooltip: {
-                            trigger: 'axis'
-                        },
-                        legend: {
-                            data: ['红6.5cm', '红6.0cm', '红5.5cm', '红5.0cm']
-                        },
-                        grid: {
-                            left: '3%',
-                            right: '4%',
-                            bottom: '3%',
-                            containLabel: true
-                        },
-                        toolbox: {
-                            feature: {
-                                saveAsImage: {}
-                            }
-                        },
-                        xAxis: {
-                            type: 'category',
-                            boundaryGap: false,
-                            data: garlic_date
-                        },
-                        yAxis: {
-                            type: 'value'
-                        },
-                        series: [
-                            {
-                                name: '红6.5cm',
-                                type: 'line',
-                                stack: '价格1',
-                                data:  red_garlic_6_5_price
-                            },
-
-                            {
-                                name: '红6.0cm',
-                                type: 'line',
-                                stack: '价格2',
-                                data: red_garlic_6_0_price
-                            },
-                            {
-                                name: '红5.5cm',
-                                type: 'line',
-                                stack: '价格3',
-                                data: red_garlic_5_5_price
-                            },
-                            {
-                                name: '红5.0cm',
-                                type: 'line',
-                                stack: '价格4',
-                                data: red_garlic_5_0_price
-                            },
-                        ]
-                    };
-
-
-                    // 使用刚指定的配置项和数据显示图表。
-                    myChart.setOption(option);
-
-                }
-            })
+        priceChange()
+        getLastSevenDay()
     })
+    //近7日大蒜价格浮动趋势
+    function getLastSevenDay(){
+        var id = 1;
+        let garlic_date = [];
+
+        let red_garlic_6_5_price = [];
+        let red_garlic_6_0_price = [];
+        let red_garlic_5_5_price = [];
+        let red_garlic_5_0_price = [];
+        $.ajax({
+            url: "{:url('/admin/garlic/lastSevenDay')}",
+            data: {id: id},
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                //console.log(data);return;
+                $.each(data.red_6_5,function (index, item) {
+                    garlic_date.push(item.date);
+                    red_garlic_6_5_price.push(item.price.substring(0,4));
+                })
+                $.each(data.red_6_0,function (index, item) {
+                    red_garlic_6_0_price.push(item.price.substring(0,4));
+                })
+                $.each(data.red_5_5,function (index, item) {
+                    red_garlic_5_5_price.push(item.price.substring(0,4));
+                })
+                $.each(data.red_5_0,function (index, item) {
+                    red_garlic_5_0_price.push(item.price.substring(0,4));
+                })
+
+
+
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('lastSevenDay'));
+
+                // 指定图表的配置项和数据
+                option = {
+                    title: {
+                        text: '近七日大蒜价格走势'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: ['红6.5cm', '红6.0cm', '红5.5cm', '红5.0cm']
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: garlic_date
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: '红6.5cm',
+                            type: 'line',
+                            stack: '价格1',
+                            data:  red_garlic_6_5_price
+                        },
+
+                        {
+                            name: '红6.0cm',
+                            type: 'line',
+                            stack: '价格2',
+                            data: red_garlic_6_0_price
+                        },
+                        {
+                            name: '红5.5cm',
+                            type: 'line',
+                            stack: '价格3',
+                            data: red_garlic_5_5_price
+                        },
+                        {
+                            name: '红5.0cm',
+                            type: 'line',
+                            stack: '价格4',
+                            data: red_garlic_5_0_price
+                        },
+                    ]
+                };
+
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+
+            }
+        })
+    }
+    //2021大蒜价格变化趋势
+    function priceChange(){
+        var id = 1;
+        let garlic_date = [];
+
+        let red_garlic_6_5_price = [];
+        let red_garlic_6_0_price = [];
+        let red_garlic_5_5_price = [];
+        let red_garlic_5_0_price = [];
+        $.ajax({
+            url: "{:url('/admin/garlic/index')}",
+            data: {id: id},
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                //console.log(data);return;
+                $.each(data.red_6_5,function (index, item) {
+                    garlic_date.push(item.date);
+                    red_garlic_6_5_price.push(item.price.substring(0,4));
+                })
+                $.each(data.red_6_0,function (index, item) {
+                    red_garlic_6_0_price.push(item.price.substring(0,4));
+                })
+                $.each(data.red_5_5,function (index, item) {
+                    red_garlic_5_5_price.push(item.price.substring(0,4));
+                })
+                $.each(data.red_5_0,function (index, item) {
+                    red_garlic_5_0_price.push(item.price.substring(0,4));
+                })
+                console.log(garlic_date);//return;
+
+
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('garlic'));
+
+                // 指定图表的配置项和数据
+                option = {
+                    title: {
+                        text: '2020-2021大蒜价格走势图'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: ['红6.5cm', '红6.0cm', '红5.5cm', '红5.0cm']
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: garlic_date
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: '红6.5cm',
+                            type: 'line',
+                            stack: '价格1',
+                            data:  red_garlic_6_5_price
+                        },
+
+                        {
+                            name: '红6.0cm',
+                            type: 'line',
+                            stack: '价格2',
+                            data: red_garlic_6_0_price
+                        },
+                        {
+                            name: '红5.5cm',
+                            type: 'line',
+                            stack: '价格3',
+                            data: red_garlic_5_5_price
+                        },
+                        {
+                            name: '红5.0cm',
+                            type: 'line',
+                            stack: '价格4',
+                            data: red_garlic_5_0_price
+                        },
+                    ]
+                };
+
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+
+            }
+        })
+    }
 </script>
 <script type="text/javascript">
 
