@@ -9,67 +9,12 @@
     <title>{$title}</title>
     <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
 </head>
-<style>
-    * {
-        margin: 0;
-        padding: 0
-    }
 
-    html, body {
-        width: 100%;
-        height: 100%;
-    }
-
-    #main {
-        width: 600px;
-        height: 450px;
-        /*margin: 50px auto;*/
-        border: 1px solid #ccc;
-    }
-
-    #ma {
-        width: 600px;
-        height: 50px;
-        margin: 0 auto;
-        border: 1px solid #ccc;
-    }
-    #th {
-        width: 600px;
-        height: 450px;
-        /*margin: 50px auto;*/
-        border: 1px solid #ccc;
-    }
-    table{
-        width: 400px;
-        border:solid #ccc 1px;
-        text-align: center;
-        border-collapse: collapse;
-
-
-    }
-    table td{
-        align-content: center;
-        border:solid #ccc 1px;
-        height: 100px;
-    }
-    .flex{
-        display: flex;
-    }
-    .flexColumn{
-        display:flex;
-        flex-direction: column;
-    }
-    .border{
-        border:solid red 1px;
-    }
-</style>
 <body>
-    <div class="flexColumn border" style="height: 100%;">
-        <div id="lastSevenDay" class="border" style="width:50%;height: 300px">
-
-        </div>
-        <div id="garlic" style="width: 100%;height:50%;">
-
+<div class="flexColumn border" style="height: 100%;">
+    <div id="lastSevenDay" class="border" style="width:50%;height: 300px">
+    </div>
+    <div id="garlic" style="width: 100%;height:50%;">
     </div>
 
 </div>
@@ -79,8 +24,9 @@
         priceChange()
         getLastSevenDay()
     })
+
     //近7日大蒜价格浮动趋势
-    function getLastSevenDay(){
+    function getLastSevenDay() {
         var id = 1;
         let garlic_date = [];
 
@@ -95,20 +41,19 @@
             dataType: "json",
             success: function (data) {
                 //console.log(data);return;
-                $.each(data.red_6_5,function (index, item) {
+                $.each(data.red_6_5, function (index, item) {
                     garlic_date.push(item.date);
-                    red_garlic_6_5_price.push(item.price.substring(0,4));
+                    red_garlic_6_5_price.push(item.price.substring(0, 4));
                 })
-                $.each(data.red_6_0,function (index, item) {
-                    red_garlic_6_0_price.push(item.price.substring(0,4));
+                $.each(data.red_6_0, function (index, item) {
+                    red_garlic_6_0_price.push(item.price.substring(0, 4));
                 })
-                $.each(data.red_5_5,function (index, item) {
-                    red_garlic_5_5_price.push(item.price.substring(0,4));
+                $.each(data.red_5_5, function (index, item) {
+                    red_garlic_5_5_price.push(item.price.substring(0, 4));
                 })
-                $.each(data.red_5_0,function (index, item) {
-                    red_garlic_5_0_price.push(item.price.substring(0,4));
+                $.each(data.red_5_0, function (index, item) {
+                    red_garlic_5_0_price.push(item.price.substring(0, 4));
                 })
-
 
 
                 // 基于准备好的dom，初始化echarts实例
@@ -149,7 +94,7 @@
                             name: '红6.5cm',
                             type: 'line',
                             stack: '价格1',
-                            data:  red_garlic_6_5_price
+                            data: red_garlic_6_5_price
                         },
 
                         {
@@ -180,8 +125,9 @@
             }
         })
     }
+
     //2021大蒜价格变化趋势
-    function priceChange(){
+    function priceChange() {
         var id = 1;
         let garlic_date = [];
 
@@ -196,18 +142,18 @@
             dataType: "json",
             success: function (data) {
                 //console.log(data);return;
-                $.each(data.red_6_5,function (index, item) {
+                $.each(data.red_6_5, function (index, item) {
                     garlic_date.push(item.date);
-                    red_garlic_6_5_price.push(item.price.substring(0,4));
+                    red_garlic_6_5_price.push(item.price.substring(0, 4));
                 })
-                $.each(data.red_6_0,function (index, item) {
-                    red_garlic_6_0_price.push(item.price.substring(0,4));
+                $.each(data.red_6_0, function (index, item) {
+                    red_garlic_6_0_price.push(item.price.substring(0, 4));
                 })
-                $.each(data.red_5_5,function (index, item) {
-                    red_garlic_5_5_price.push(item.price.substring(0,4));
+                $.each(data.red_5_5, function (index, item) {
+                    red_garlic_5_5_price.push(item.price.substring(0, 4));
                 })
-                $.each(data.red_5_0,function (index, item) {
-                    red_garlic_5_0_price.push(item.price.substring(0,4));
+                $.each(data.red_5_0, function (index, item) {
+                    red_garlic_5_0_price.push(item.price.substring(0, 4));
                 })
                 console.log(garlic_date);//return;
 
@@ -250,7 +196,7 @@
                             name: '红6.5cm',
                             type: 'line',
                             stack: '价格1',
-                            data:  red_garlic_6_5_price
+                            data: red_garlic_6_5_price
                         },
 
                         {
@@ -286,4 +232,66 @@
 
 </script>
 </body>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+
+    html, body {
+        width: 100%;
+        height: 100%;
+    }
+
+    #main {
+        width: 600px;
+        height: 450px;
+        /*margin: 50px auto;*/
+        border: 1px solid #ccc;
+    }
+
+    #ma {
+        width: 600px;
+        height: 50px;
+        margin: 0 auto;
+        border: 1px solid #ccc;
+    }
+
+    #th {
+        width: 600px;
+        height: 450px;
+        /*margin: 50px auto;*/
+        border: 1px solid #ccc;
+    }
+
+    table {
+        width: 400px;
+        border: solid #ccc 1px;
+        text-align: center;
+        border-collapse: collapse;
+
+
+    }
+
+    table td {
+        align-content: center;
+        border: solid #ccc 1px;
+        height: 100px;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .flexColumn {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .border {
+        border: solid red 1px;
+    }
+</style>
+
 </html>
