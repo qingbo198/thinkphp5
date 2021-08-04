@@ -52,7 +52,7 @@ class Garlic extends Controller
             //echo 'debug<br><pre>'; print_r($garlic); exit;
             exit(json_encode($garlic));
         }
-        $this->assign('title', 'hello');
+        $this->assign('title', '大蒜价格数据采集');
         return $this->fetch();
     }
 
@@ -104,7 +104,33 @@ class Garlic extends Controller
             //echo 'debug<br><pre>'; print_r($garlic); exit;
             exit(json_encode($garlic));
         }
-        $this->assign('title', 'hello');
+        $this->assign('title', '大蒜数据采集');
         return $this->fetch();
+    }
+
+    public function localTest(Request $request){
+        header("Access-Control-Allow-Origin: *");
+        $array = [1,2,3];
+        exit(json_encode($array));
+    }
+
+    public function check()
+    {
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+        $echostr = $_GET["echostr"];
+
+        $token = 'weixin';
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode($tmpArr);
+        $tmpStr = sha1($tmpStr);
+
+        if ($tmpStr == $signature) {
+            return $echostr;
+        } else {
+            return false;
+        }
     }
 }
